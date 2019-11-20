@@ -15,23 +15,31 @@ class MemberList extends Component {
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
   };
-  render() {
-    console.log(membersData.membersData);
 
-    const memberList = membersData.membersData.map((item, index) => {
+  navigateToAddMember = () => {
+    this.props.history.push("/member-add");
+  };
+
+  render() {
+    const memberList = membersData.membersData.map(item => {
       return (
-        <Table.Row>
-          <Table.Cell>{item.name}</Table.Cell>
+        <Table.Row key={item.id}>
+          <Table.Cell textAlign="center">{item.name}</Table.Cell>
           <Table.Cell textAlign="center">
             {item.membership_status && (
-              <Icon color="green" name="checkmark" size="mediam" />
+              <Icon color="green" name="checkmark" size="small" />
             )}
           </Table.Cell>
           <Table.Cell textAlign="center">
             {item.meal_allotment.map(a => {
               return (
                 a.morning && (
-                  <Icon color="green" name="checkmark" size="mediam" />
+                  <Icon
+                    key={a.morning}
+                    color="green"
+                    name="checkmark"
+                    size="small"
+                  />
                 )
               );
             })}
@@ -40,15 +48,23 @@ class MemberList extends Component {
             {item.meal_allotment.map(a => {
               return (
                 a.evening && (
-                  <Icon color="green" name="checkmark" size="mediam" />
+                  <Icon
+                    key={a.evening}
+                    color="green"
+                    name="checkmark"
+                    size="small"
+                  />
                 )
               );
             })}
           </Table.Cell>
           <Table.Cell textAlign="center">
             {item.internet_access && (
-              <Icon color="green" name="checkmark" size="mediam" />
+              <Icon color="green" name="checkmark" size="small" />
             )}
+          </Table.Cell>
+          <Table.Cell className="text-center">
+            <Icon color="black" name="pencil" size="small" />
           </Table.Cell>
         </Table.Row>
       );
@@ -58,7 +74,7 @@ class MemberList extends Component {
       <div>
         <TopHeader />
         <Container>
-          <Header className="mt-4" as="h3" dividing>
+          <Header className="mt-5" as="h3">
             Site
             <Button
               color="black"
@@ -66,21 +82,16 @@ class MemberList extends Component {
               floated="right"
               animated
               style={{ width: "100px", marginTop: "-5px" }}
+              onClick={this.navigateToAddMember}
             >
               <Button.Content visible>
-                <Icon name="plus squar" />
+                <Icon name="plus" />
               </Button.Content>
               <Button.Content hidden>Add Member</Button.Content>
             </Button>
           </Header>
-          {/* <ReactTable
-            data={data}
-            columns={columns}
-            showPagination={false}
-            minRows={7}
-          /> */}
 
-          <Table celled structured striped>
+          <Table className="mt-5" celled structured striped>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell rowSpan="2">Member Name</Table.HeaderCell>
@@ -89,6 +100,7 @@ class MemberList extends Component {
                 </Table.HeaderCell>
                 <Table.HeaderCell colSpan="2">Meal Allotment</Table.HeaderCell>
                 <Table.HeaderCell rowSpan="2">Intent Access</Table.HeaderCell>
+                <Table.HeaderCell rowSpan="2">Action</Table.HeaderCell>
               </Table.Row>
               <Table.Row>
                 <Table.HeaderCell>Morning</Table.HeaderCell>
