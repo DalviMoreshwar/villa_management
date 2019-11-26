@@ -75,7 +75,7 @@ class MemberList extends Component {
         <TopHeader />
         <Container>
           <Header className="mt-5" as="h3">
-            Site
+            Members
             <Button
               color="black"
               size="tiny"
