@@ -17,7 +17,8 @@ class MemberAdd extends Component {
     this.state = {
       name: "",
       membership_status: true,
-      meal_allotment: [{ morning: false, evening: false }],
+      morning_meal: false,
+      evening_meal: false,
       internet_access: false
     };
   }
@@ -28,14 +29,31 @@ class MemberAdd extends Component {
   };
 
   isInternetAccess = () => {
-    this.setState({ internet_access: !this.state.internet_access });
+    this.setState(prevState => {
+      return { internet_access: !prevState.internet_access };
+    });
+  };
+
+  isMorningMeal = () => {
+    this.setState(prevStatus => {
+      return { morning_meal: !prevStatus.morning_meal };
+    });
+  };
+
+  isEveningMeal = () => {
+    this.setState(prevStatus => {
+      return { evening_meal: !prevStatus.evening_meal };
+    });
+  };
+
+  handleSubmit = () => {
+    console.log(this.state);
   };
 
   navigateToMembersList = () => {
     this.props.history.push("/");
   };
   render() {
-    const { membership_status } = this.state;
     return (
       <div>
         <TopHeader />
@@ -59,7 +77,7 @@ class MemberAdd extends Component {
 
           <Grid columns="equal">
             <Grid.Row>
-              <Grid.Column width={6}>
+              <Grid.Column>
                 <Form>
                   <Form.Field>
                     <label>Member Name</label>
@@ -70,6 +88,10 @@ class MemberAdd extends Component {
                       placeholder="Member Name"
                     />
                   </Form.Field>
+                </Form>
+              </Grid.Column>
+              <Grid.Column>
+                <Form>
                   <Form.Field>
                     <label>Internet Access</label>
                     <Checkbox
@@ -79,23 +101,39 @@ class MemberAdd extends Component {
                       onChange={this.isInternetAccess}
                     />
                   </Form.Field>
-                  <Button type="submit">Submit</Button>
                 </Form>
               </Grid.Column>
-              <Grid.Column width={6}>
+
+              <Grid.Column>
                 <Form>
                   <Form.Field>
-                    <label>Membership Status</label>
+                    <label>Morning Meal</label>
                     <Checkbox
                       className="mt-2"
-                      name="internet_access"
+                      name="morning_meal"
                       toggle
-                      checked={membership_status ? true : false}
+                      onChange={this.isMorningMeal}
+                    />
+                  </Form.Field>
+                </Form>
+              </Grid.Column>
+              <Grid.Column>
+                <Form>
+                  <Form.Field>
+                    <label>Evening Meal</label>
+                    <Checkbox
+                      className="mt-2"
+                      name="evening_meal"
+                      toggle
+                      onChange={this.isEveningMeal}
                     />
                   </Form.Field>
                 </Form>
               </Grid.Column>
             </Grid.Row>
+            <Button type="submit" onClick={this.handleSubmit}>
+              Submit
+            </Button>
           </Grid>
         </Container>
       </div>

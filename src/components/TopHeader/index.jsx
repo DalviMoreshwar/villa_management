@@ -2,19 +2,25 @@ import React, { Component } from "react";
 import { Menu, Container } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
+import "./style.css";
+
 class TopHeader extends Component {
   render() {
     return (
       <div>
-        <Menu pointing inverted>
+        <Menu pointing className="topbar">
           <Container>
             <Link to="/">
               <Menu.Item
-                name="VILLA"
-                style={{ fontWeight: "bold", textDecoration: "italic" }}
+                name="Villa"
+                style={{
+                  color: "#f9f9f9",
+                  fontWeight: "bold",
+                  textDecoration: "italic"
+                }}
               />
             </Link>
-            <Menu.Item
+            {/* <Menu.Item
               name="messages"
               active={this.activeItem === "messages"}
               onClick={this.handleItemClick}
@@ -23,7 +29,7 @@ class TopHeader extends Component {
               name="friends"
               active={this.activeItem === "friends"}
               onClick={this.handleItemClick}
-            />
+            /> */}
             {/* <Menu.Menu position='right'>
               <Menu.Item>
                 <Input icon='search' placeholder='Search...' />
